@@ -64,6 +64,27 @@ class ActivityImg : ActivityBase() {
         listItem.add(createItem(getString(R.string.backup_action_title_persist), getString(R.string.backup_action_desc_persist), "dump-persist"))
         listItem.add(createItem(getString(R.string.restore_action_title_persist), getString(R.string.restore_action_desc_persist), "flash-persist"))
 
+        listItem.add(createItem(getString(R.string.backup_action_title_modem), getString(R.string.backup_action_desc_modem), "dump-modem"))
+        listItem.add(createItem(getString(R.string.restore_action_title_modem), getString(R.string.restore_action_desc_modem), "flash-modem"))
+
+        listItem.add(createItem(getString(R.string.backup_action_title_boot_a), getString(R.string.backup_action_desc_boot_a), "dump-boot-a"))
+        listItem.add(createItem(getString(R.string.restore_action_title_boot_a), getString(R.string.restore_action_desc_boot_a), "flash-boot-a"))
+
+        listItem.add(createItem(getString(R.string.backup_action_title_boot_b), getString(R.string.backup_action_desc_boot_b), "dump-boot-b"))
+        listItem.add(createItem(getString(R.string.restore_action_title_boot_b), getString(R.string.restore_action_desc_boot_b), "flash-boot-b"))
+
+        listItem.add(createItem(getString(R.string.backup_action_title_vendor_boot_a), getString(R.string.backup_action_desc_vendor_boot_a), "dump-vendor-boot-a"))
+        listItem.add(createItem(getString(R.string.restore_action_title_vendor_boot_a), getString(R.string.restore_action_desc_vendor_boot_a), "flash-vendor-boot-a"))
+
+        listItem.add(createItem(getString(R.string.backup_action_title_vendor_boot_b), getString(R.string.backup_action_desc_vendor_boot_b), "dump-vendor-boot-b"))
+        listItem.add(createItem(getString(R.string.restore_action_title_vendor_boot_b), getString(R.string.restore_action_desc_vendor_boot_b), "flash-vendor-boot-b"))
+
+        listItem.add(createItem(getString(R.string.backup_action_title_modem_a), getString(R.string.backup_action_desc_modem_a), "dump-modem-a"))
+        listItem.add(createItem(getString(R.string.restore_action_title_modem_a), getString(R.string.restore_action_desc_modem_a), "flash-modem-a"))
+
+        listItem.add(createItem(getString(R.string.backup_action_title_modem_b), getString(R.string.backup_action_desc_modem_b), "dump-modem-b"))
+        listItem.add(createItem(getString(R.string.restore_action_title_modem_b), getString(R.string.restore_action_desc_modem_b), "flash-modem-b"))
+
         val mSimpleAdapter = SimpleAdapter(
                 this,
                 listItem,
@@ -88,6 +109,27 @@ class ActivityImg : ActivityBase() {
 
                 "dump-persist" -> backupImg(PERSIST_IMG)
                 "flash-persist" -> chooseImgToFlash(PERSIST_IMG)
+
+                "dump-modem" -> backupImg(MODEM_IMG)
+                "flash-modem" -> chooseImgToFlash(MODEM_IMG)
+
+                "dump-boot-a" -> backupImg(BOOT_A_IMG)
+                "flash-boot-a" -> chooseImgToFlash(BOOT_A_IMG)
+
+                "dump-boot-b" -> backupImg(BOOT_B_IMG)
+                "flash-boot-b" -> chooseImgToFlash(BOOT_B_IMG)
+
+                "dump-vendor-boot-a" -> backupImg(VENDOR_BOOT_A_IMG)
+                "flash-vendor-boot-a" -> chooseImgToFlash(VENDOR_BOOT_A_IMG)
+
+                "dump-vendor-boot-b" -> backupImg(VENDOR_BOOT_B_IMG)
+                "flash-vendor-boot-b" -> chooseImgToFlash(VENDOR_BOOT_B_IMG)
+
+                "dump-modem-a" -> backupImg(MODEM_A_IMG)
+                "flash-modem-a" -> chooseImgToFlash(MODEM_A_IMG)
+
+                "dump-modem-b" -> backupImg(MODEM_B_IMG)
+                "flash-modem-b" -> chooseImgToFlash(MODEM_B_IMG)
             }
         }
     }
@@ -103,6 +145,13 @@ class ActivityImg : ActivityBase() {
                 RECOVERY_IMG -> fileName = "recovery"
                 DTBO_IMG -> fileName = "dtbo"
                 PERSIST_IMG -> fileName = "persist"
+                MODEM_IMG -> fileName = "modem"
+                BOOT_A_IMG -> fileName = "boot_a"
+                BOOT_B_IMG -> fileName = "boot_b"
+                VENDOR_BOOT_A_IMG -> fileName = "vendor_boot_a"
+                VENDOR_BOOT_B_IMG -> fileName = "vendor_boot_b"
+                MODEM_A_IMG -> fileName = "modem_a"
+                MODEM_B_IMG -> fileName = "modem_b"
             }
             if (File("${CommonCmds.SDCardDir}/$fileName.img").exists()) {
                 DialogHelper.confirm(this,
@@ -122,6 +171,13 @@ class ActivityImg : ActivityBase() {
             RECOVERY_IMG -> BackupRestoreUtils(this).saveRecovery()
             DTBO_IMG -> BackupRestoreUtils(this).saveDTBO()
             PERSIST_IMG -> BackupRestoreUtils(this).savePersist()
+            MODEM_IMG -> BackupRestoreUtils(this).saveModem()
+            BOOT_A_IMG -> BackupRestoreUtils(this).saveBootA()
+            BOOT_B_IMG -> BackupRestoreUtils(this).saveBootB()
+            VENDOR_BOOT_A_IMG -> BackupRestoreUtils(this).saveVendorBootA()
+            VENDOR_BOOT_B_IMG -> BackupRestoreUtils(this).saveVendorBootB()
+            MODEM_A_IMG -> BackupRestoreUtils(this).saveModemA()
+            MODEM_B_IMG -> BackupRestoreUtils(this).saveModemB()
         }
     }
 
@@ -129,6 +185,13 @@ class ActivityImg : ActivityBase() {
     private val RECOVERY_IMG = 1
     private val DTBO_IMG = 2
     private val PERSIST_IMG = 3
+    private val MODEM_IMG = 4
+    private val BOOT_A_IMG = 5
+    private val BOOT_B_IMG = 6
+    private val VENDOR_BOOT_A_IMG = 7
+    private val VENDOR_BOOT_B_IMG = 8
+    private val MODEM_A_IMG = 9
+    private val MODEM_B_IMG = 10
 
     private fun chooseImgToFlash(type: Int) {
         if (Build.VERSION.SDK_INT >= 30) {
@@ -152,6 +215,13 @@ class ActivityImg : ActivityBase() {
                 RECOVERY_IMG -> partition = "Recovery"
                 DTBO_IMG -> partition = "DTBO"
                 PERSIST_IMG -> partition = "Persist"
+                MODEM_IMG -> partition = "Modem"
+                BOOT_A_IMG -> partition = "Boot_A"
+                BOOT_B_IMG -> partition = "Boot_B"
+                VENDOR_BOOT_A_IMG -> partition = "Vendor_Boot_A"
+                VENDOR_BOOT_B_IMG -> partition = "Vendor_Boot_B"
+                MODEM_A_IMG -> partition = "Modem_A"
+                MODEM_B_IMG -> partition = "Modem_B"
             }
             DialogHelper.confirm(this,
                     getString(R.string.flash_confirm),
@@ -162,6 +232,9 @@ class ActivityImg : ActivityBase() {
                             RECOVERY_IMG -> BackupRestoreUtils(this).flashRecovery(imgPath)
                             DTBO_IMG -> BackupRestoreUtils(this).flashDTBO(imgPath)
                             PERSIST_IMG -> BackupRestoreUtils(this).flashPersist(imgPath)
+                            MODEM_IMG -> BackupRestoreUtils(this).flashModem(imgPath)
+                            BOOT_A_IMG -> BackupRestoreUtils(this).flashBootA(imgPath)
+                            BOOT_B_IMG -> BackupRestoreUtils(this).flashBootB(imgPath)
                         }
                     })
         }

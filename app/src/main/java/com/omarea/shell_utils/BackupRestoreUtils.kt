@@ -3,6 +3,7 @@ package com.omarea.shell_utils
 import android.app.Activity
 import android.os.Handler
 import android.os.Looper
+import android.provider.DocumentsContract
 import android.widget.Toast
 import com.omarea.common.shell.KeepShellPublic
 import com.omarea.common.shell.RootFile
@@ -22,9 +23,23 @@ class BackupRestoreUtils(var context: Activity) {
         private var recPartPath = "/dev/block/bootdevice/by-name/recovery"
         private var dtboPartPath = "/dev/block/bootdevice/by-name/dtbo"
         private var persistPartPath = "/dev/block/bootdevice/by-name/persist"
+        private var modemPartPath = "/dev/block/bootdevice/by-name/modem"
+        private var vabBootAPartPath = "/dev/block/bootdevice/by-name/boot_a"
+        private var vabBootBPartPath = "/dev/block/bootdevice/by-name/boot_b"
+        private var vabVendorBootAPartPath = "/dev/block/bootdevice/by-name/vendor_boot_a"
+        private var vabVendorBootBPartPath = "/dev/block/bootdevice/by-name/vendor_boot_b"
+        private var vabModemAPartPath = "/dev/block/bootdevice/by-name/modem_a"
+        private var vabModemBPartPath = "/dev/block/bootdevice/by-name/modem_b"
 
         fun isSupport(): Boolean {
-            if (RootFile.itemExists(bootPartPath) || RootFile.itemExists(recPartPath)) {
+            if (
+                RootFile.itemExists(bootPartPath) ||
+                RootFile.itemExists(recPartPath) ||
+                RootFile.itemExists(modemPartPath) ||
+                RootFile.itemExists(vabBootAPartPath) || RootFile.itemExists(vabBootBPartPath) ||
+                RootFile.itemExists(vabVendorBootAPartPath) || RootFile.itemExists(vabVendorBootBPartPath) ||
+                RootFile.itemExists(vabModemAPartPath) || RootFile.itemExists(vabModemBPartPath)
+            ) {
                 return true
             }
 
@@ -91,6 +106,34 @@ class BackupRestoreUtils(var context: Activity) {
         FlashImgThread(path, persistPartPath).start()
     }
 
+    fun flashModem(path: String) {
+        FlashImgThread(path, modemPartPath).start()
+    }
+
+    fun flashBootA(path: String) {
+        FlashImgThread(path, vabBootAPartPath).start()
+    }
+
+    fun flashBootB(path: String) {
+        FlashImgThread(path, vabBootBPartPath).start()
+    }
+
+    fun flashVendorBootA(path: String) {
+        FlashImgThread(path, vabVendorBootAPartPath).start()
+    }
+
+    fun flashVendorBootB(path: String) {
+        FlashImgThread(path, vabVendorBootBPartPath).start()
+    }
+
+    fun flashModemA(path: String) {
+        FlashImgThread(path, vabModemAPartPath).start()
+    }
+
+    fun flashModemB(path: String) {
+        FlashImgThread(path, vabModemBPartPath).start()
+    }
+
     internal inner class FlashImgThread(var inputPath: String, var outputPath: String) : Thread() {
         override fun run() {
             if (!isSupport() || !RootFile.itemExists(outputPath)) {
@@ -123,6 +166,34 @@ class BackupRestoreUtils(var context: Activity) {
 
     fun savePersist() {
         SaveImgThread(persistPartPath, "persist").start()
+    }
+
+    fun saveModem() {
+        SaveImgThread(modemPartPath, "modem").start()
+    }
+
+    fun saveBootA() {
+        SaveImgThread(vabBootAPartPath, "boot_a").start()
+    }
+
+    fun saveBootB() {
+        SaveImgThread(vabBootBPartPath, "boot_b").start()
+    }
+
+    fun saveVendorBootA() {
+        SaveImgThread(vabVendorBootAPartPath, "vendor_boot_a").start()
+    }
+
+    fun saveVendorBootB() {
+        SaveImgThread(vabVendorBootBPartPath, "vendor_boot_b").start()
+    }
+
+    fun saveModemA() {
+        SaveImgThread(vabModemAPartPath, "modem_a").start()
+    }
+
+    fun saveModemB() {
+        SaveImgThread(vabModemBPartPath, "modem_b").start()
     }
 
     internal inner class SaveImgThread(var inputPath: String, var outputName: String) : Thread() {

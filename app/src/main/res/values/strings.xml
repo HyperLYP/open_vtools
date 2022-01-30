@@ -59,6 +59,41 @@
     <string name="restore_action_title_persist">刷入Persist镜像</string>
     <string name="restore_action_desc_persist">选择刷入persist.img</string>
 
+    <string name="backup_action_title_modem">导出modem分区</string>
+    <string name="backup_action_desc_modem">导出modem分区为img镜像，复制到/sdcard/persist.img</string>
+    <string name="restore_action_title_modem">刷入modem镜像</string>
+    <string name="restore_action_desc_modem">选择刷入modem.img</string>
+
+    <string name="backup_action_title_boot_a">[vab机型]导出boot_a</string>
+    <string name="backup_action_desc_boot_a">备份boot_a为img，复制到/sdcard/boot_a.img</string>
+    <string name="restore_action_title_boot_a">[vab机型]刷入boot_a</string>
+    <string name="restore_action_desc_boot_a">选择刷入boot_a.img</string>
+
+    <string name="backup_action_title_boot_b">[vab机型]导出boot_b</string>
+    <string name="backup_action_desc_boot_b">备份boot_b为img，复制到/sdcard/boot_b.img</string>
+    <string name="restore_action_title_boot_b">[vab机型]刷入boot_b</string>
+    <string name="restore_action_desc_boot_b">选择刷入boot_b.img</string>
+
+    <string name="backup_action_title_vendor_boot_a">[vab机型]导出vendor_boot_a</string>
+    <string name="backup_action_desc_vendor_boot_a">备份vendor_boot_a为img，复制到/sdcard/vendor_boot_a.img</string>
+    <string name="restore_action_title_vendor_boot_a">[vab机型]刷入vendor_boot_a</string>
+    <string name="restore_action_desc_vendor_boot_a">选择刷入vendor_boot_a.img</string>
+
+    <string name="backup_action_title_vendor_boot_b">[vab机型]导出vendor_boot_b</string>
+    <string name="backup_action_desc_vendor_boot_b">备份vendor_boot_b为img，复制到/sdcard/vendor_boot_b.img</string>
+    <string name="restore_action_title_vendor_boot_b">[vab机型]刷入vendor_boot_b</string>
+    <string name="restore_action_desc_vendor_boot_b">选择刷入vendor_boot_b.img</string>
+
+    <string name="backup_action_title_modem_a">[vab机型]导出modem_a</string>
+    <string name="backup_action_desc_modem_a">备份modem_a为img，复制到/sdcard/modem_a.img</string>
+    <string name="restore_action_title_modem_a">[vab机型]刷入modem_a</string>
+    <string name="restore_action_desc_modem_a">选择刷入modem_a.img</string>
+
+    <string name="backup_action_title_modem_b">[vab机型]导出modem_b</string>
+    <string name="backup_action_desc_modem_b">备份modem_b为img，复制到/sdcard/modem_b.img</string>
+    <string name="restore_action_title_modem_b">[vab机型]刷入modem_b</string>
+    <string name="restore_action_desc_modem_b">选择刷入modem_b.img</string>
+
     <string name="backup_file_exists">覆盖文件？</string>
     <string name="backup_img_exists">/sdcard/%s.img已经存在，是否覆盖已有文件？\n</string>
     <string name="backup_space_small">存储空间不足，请至少预留200M可用空间！</string>
